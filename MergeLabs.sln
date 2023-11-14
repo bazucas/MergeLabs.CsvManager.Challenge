@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MergeLabs.CsvManager.Console", "MergeLabs.CsvManager.Console\MergeLabs.CsvManager.Console.csproj", "{390D7E65-629F-43A6-95DD-7762C9C43185}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MergeLabs.CsvManager.Benchmark", "MergeLabs.CsvManager.Benchmark\MergeLabs.CsvManager.Benchmark.csproj", "{6AA72E06-1360-489F-999B-845C66D04F28}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MergeLabs.CsvManager.Tests", "MergeLabs.CsvManager.Tests\MergeLabs.CsvManager.Tests.csproj", "{06EA003C-81E3-4509-A7A9-11DCB61D0751}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MergeLabs.CsvManager.DataAccess", "MergeLabs.CsvManager.DataAccess\MergeLabs.CsvManager.DataAccess.csproj", "{0A7D286E-CC06-4AE2-BDAB-200864BA5E42}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MergeLabs.CsvManager.Lib", "MergeLabs.CsvManager.Lib\MergeLabs.CsvManager.Lib.csproj", "{EE8CE836-9606-425B-ADA6-E3D28BCD7A57}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{390D7E65-629F-43A6-95DD-7762C9C43185}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{390D7E65-629F-43A6-95DD-7762C9C43185}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{390D7E65-629F-43A6-95DD-7762C9C43185}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{390D7E65-629F-43A6-95DD-7762C9C43185}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6AA72E06-1360-489F-999B-845C66D04F28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6AA72E06-1360-489F-999B-845C66D04F28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6AA72E06-1360-489F-999B-845C66D04F28}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +29,10 @@ Global
 		{0A7D286E-CC06-4AE2-BDAB-200864BA5E42}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A7D286E-CC06-4AE2-BDAB-200864BA5E42}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A7D286E-CC06-4AE2-BDAB-200864BA5E42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE8CE836-9606-425B-ADA6-E3D28BCD7A57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE8CE836-9606-425B-ADA6-E3D28BCD7A57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE8CE836-9606-425B-ADA6-E3D28BCD7A57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE8CE836-9606-425B-ADA6-E3D28BCD7A57}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
