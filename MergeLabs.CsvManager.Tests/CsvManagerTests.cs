@@ -2,7 +2,7 @@ namespace MergeLabs.CsvManager.Tests;
 using CsvManager = Lib.CsvManager;
 
 [TestClass]
-public class UnitTest
+public class CsvManagerTests
 {
     public required TestContext TestContext { get; init; }
 
@@ -12,6 +12,15 @@ public class UnitTest
     {
         TestContext.WriteLine($" > {display_name}");
         var results = CsvManager.SimpleTransformCsv(input);
+        Assert.AreEqual(expected, results);
+    }
+
+    [TestMethod]
+    [DynamicData(nameof(TestDataSet.GenerateBasicDataSet), typeof(TestDataSet), DynamicDataSourceType.Method)]
+    public void TestTransformCsvMethod(string display_name, string input, string expected)
+    {
+        TestContext.WriteLine($" > {display_name}");
+        var results = CsvManager.TransformCsv(input);
         Assert.AreEqual(expected, results);
     }
 }
