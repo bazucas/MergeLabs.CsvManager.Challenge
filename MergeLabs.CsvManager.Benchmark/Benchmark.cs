@@ -28,4 +28,16 @@ public class Benchmark
     {
         Lib.CsvManager.TransformCsv(_csvData);
     }
+
+    [Benchmark]
+    public void Benchmark_SimpleTransformCsv_NotMine()
+    {
+        Lib.CsvManager.SimpleTransformCsv_NotMine(_csvData);
+    }
+
+    [Benchmark]
+    public void Benchmark_TransformCsv_NotMine()
+    {
+        Lib.CsvManager.TransformCsv_NotMine(_csvData);
+    }
 }

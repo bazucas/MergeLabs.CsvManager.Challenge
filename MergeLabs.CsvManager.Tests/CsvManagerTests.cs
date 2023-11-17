@@ -23,6 +23,24 @@ public class CsvManagerTests
         var results = CsvManager.TransformCsv(input);
         Assert.AreEqual(expected, results);
     }
+
+    [TestMethod]
+    [DynamicData(nameof(TestDataSet.GenerateBasicDataSet), typeof(TestDataSet), DynamicDataSourceType.Method)]
+    public void TestSimpleTransformCsvMethod_NotMine(string display_name, string input, string expected)
+    {
+        TestContext.WriteLine($" > {display_name}");
+        var results = CsvManager.SimpleTransformCsv_NotMine(input);
+        Assert.AreEqual(expected, results);
+    }
+
+    [TestMethod]
+    [DynamicData(nameof(TestDataSet.GenerateBasicDataSet), typeof(TestDataSet), DynamicDataSourceType.Method)]
+    public void TestTransformCsvMethod_NotMine(string display_name, string input, string expected)
+    {
+        TestContext.WriteLine($" > {display_name}");
+        var results = CsvManager.TransformCsv_NotMine(input);
+        Assert.AreEqual(expected, results);
+    }
 }
 
 public static class TestDataSet

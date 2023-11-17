@@ -5,7 +5,7 @@ namespace MergeLabs.CsvManager.Lib;
 public class CsvManager
 {
     private const char CsvNewLineCharacter = '\n';
-    private const char CsvCellSeparator = ','; // seperator typo
+    private const char CsvCellSeparator = ',';
     private const string CsvNullCellIdentifier = "NULL";
 
     /// <summary>
@@ -110,5 +110,109 @@ public class CsvManager
 
         // return processed string, trimming trailing newline character
         return stringBuilder.ToString().TrimEnd(CsvNewLineCharacter);
+    }
+
+
+    /// <summary>
+    /// Transforms a CSV string by removing rows that contain the specified "NULL" cell
+    /// and ensuring that all cells in a row are not empty.
+    /// </summary>
+    /// <param name="S">The input CSV string representing data.</param>
+    /// <returns>
+    /// A transformed CSV formatted string with rows containing "NULL" cells removed
+    /// and rows with all empty cells excluded.
+    /// </returns>
+    /// <remarks>
+    /// The assumption is made that fields are not and do not include double-quotes,
+    /// and each data "cell" is separated by a comma.
+    /// </remarks>
+    /// <param name="S">CSV string representing data</param>
+    /// <returns>CSV formatted string with expected results.</returns>
+    public static string SimpleTransformCsv_NotMine(string S)
+    {
+        if (string.IsNullOrWhiteSpace(S) is true)
+        {
+            return string.Empty;
+        }
+
+        StringBuilder sb = new(S.Length);
+
+        string[] csv_rows = S.Split(CsvNewLineCharacter);
+        if (csv_rows.Length != 0)
+        {
+            sb.AppendJoin(CsvCellSeparator, csv_rows[0]);
+        }
+
+        for (int row = 1; row != csv_rows.Length; row++)
+        {
+            string[] csv_cells = csv_rows[row].Split(CsvCellSeparator);
+            bool all_cells_empty = Array.TrueForAll(csv_cells, string.IsNullOrWhiteSpace);
+
+            if (all_cells_empty is false && Array.IndexOf(csv_cells, CsvNullCellIdentifier) == -1)
+            {
+                sb.Append(CsvNewLineCharacter);
+                sb.AppendJoin(CsvCellSeparator, csv_cells);
+            }
+        }
+
+        return sb.ToString();
+    }
+
+    /// <summary>
+    /// Takes CSV string input, parses CSV and returns CSV, where any rows containing specifically "NULL" is removed.
+    /// Assumption is made that fields are not and do not include double-quotes and each data "cell" is seperated by a comma.
+    /// </summary>
+    /// <remarks>
+    /// This method leverages the <see cref="IndexedCsvRow"/> struct, which represents a CSV row along with its index.
+    /// Once instantiated, that instance of <see cref="IndexedCsvRow"/> is immutable.
+    /// <br />
+    /// The concept is to provide a structured representation that aims to enhance code reliability and maintainability by
+    /// reducing the risk of runtime errors resulting from inadvertent mishandling of data.
+    /// <br />
+    /// While introducing a layer of abstraction, this approach fosters clarity and protects against potential pitfalls,
+    /// serving as a proactive measure to prevent data-related issues within the runtime environment.
+    /// <br />
+    /// It is important to acknowledge that this approach, while prioritizing code integrity, introduces a performance trade-off
+    /// when compared to the more performance-centric methodology showcased in the <see cref="SimpleTransformCsv"/> method.
+    /// <br />
+    /// In certain scenarios, optimal performance may not always be the sole determinant of overall success.
+    /// </remarks>
+    /// <param name="S">CSV string representing data</param>
+    /// <returns>CSV formatted string with expected results.</returns>
+    public static string TransformCsv_NotMine(string S)
+    {
+        if (string.IsNullOrWhiteSpace(S) is true)
+        {
+            return string.Empty;
+        }
+
+        StringBuilder sb = new();
+
+        // split each each line by new line character `CsvNewLineCharacter` and then by `CsvCellSeparator` to get a list of strings giving us rows of cells.
+        IEnumerable<string[]> csv_cell_rows = S.Split(CsvNewLineCharacter)
+            .Select(csv_line => csv_line.Split(CsvCellSeparator));
+
+        // index our data, so we know that the first row is always headers, and access this first row when we need to
+        IList<IndexedCsvRow> indexed_csv_cell_rows = csv_cell_rows.Select(IndexedCsvRow.Create).ToList();
+
+        foreach (IndexedCsvRow csv_row in indexed_csv_cell_rows)
+        {
+            // First row > headers > continue
+            if (csv_row.Index == 0)
+            {
+                sb.AppendJoin(CsvCellSeparator, csv_row.Row);
+                continue;
+            }
+
+            // If row does not contain NULL - add to our returning data - The method IList.Contains() by default IS case-sensitive!
+            if (csv_row.Row.Contains(CsvNullCellIdentifier) == false && csv_row.Row.All(string.IsNullOrEmpty) == false)
+            {
+                sb.Append(CsvNewLineCharacter);
+                sb.AppendJoin(CsvCellSeparator, csv_row.Row);
+            }
+        }
+
+        string results = sb.ToString();
+        return results;
     }
 }
